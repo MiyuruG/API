@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meme Image API</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #imageContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #memeImage {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+        input, button {
+            margin: 10px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meme Image API</h1>
+
+    <!-- Random Meme Image Section -->
+    <div class="section">
+        <h2>Random Meme Image</h2>
+        <button onclick="fetchRandomMemeImg()">Get Random Meme Image</button>
+        <div id="randomImageContainer">
+            <img id="randomMemeImage" src="" alt="Random meme will appear here">
+        </div>
+    </div>
+
+    <!-- Meme by Title Image Section -->
+    <div class="section">
+        <h2>Meme by Title Image</h2>
+        <input type="text" id="titleSearch" placeholder="Search meme by keyword">
+        <button onclick="fetchMemeByTitleImg()">Search Meme Image</button>
+        <div id="titleImageContainer">
+            <img id="titleMemeImage" src="" alt="Meme will appear here">
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch random meme image
+        function fetchRandomMemeImg() {
+            // Set the image source directly to the API endpoint
+            document.getElementById('randomMemeImage').src = '/random-meme-img';
+        }
+
+        // Function to fetch meme image by title
+        function fetchMemeByTitleImg() {
+            const keyword = document.getElementById('titleSearch').value;
+            if (!keyword) {
+                alert('Please enter a search keyword');
+                return;
+            }
+
+            // Set the image source to the title search endpoint
+            document.getElementById('titleMemeImage').src = `/meme-by-title-img/${keyword}`;
+        }
+
+        // Optional: Add error handling for image loading
+        document.getElementById('randomMemeImage').addEventListener('error', function() {
+            alert('Failed to load random meme image');
+        });
+
+        document.getElementById('titleMemeImage').addEventListener('error', function() {
+            alert('Failed to find meme image for the given keyword');
+        });
+    </script>
+</body>
+</html>
